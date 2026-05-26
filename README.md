@@ -50,6 +50,39 @@ This repo is configured for GitHub Pages via GitHub Actions. In GitHub:
 world.castalia.institute CNAME castaliainstitute.github.io
 ```
 
+## Cloudflare Access
+
+Protect the McShan family path with Cloudflare Access:
+
+```sh
+export CLOUDFLARE_ACCOUNT_ID='...'
+export CLOUDFLARE_API_TOKEN='...'
+./scripts/setup-cloudflare-access.sh
+```
+
+Defaults:
+
+```text
+Hostname: world.castalia.institute
+Path: /families/mcshan/*
+Allowed email domain: castalia.institute
+```
+
+For a single account instead of the whole Castalia Google Workspace domain:
+
+```sh
+export CLOUDFLARE_ACCESS_EMAIL='you@castalia.institute'
+./scripts/setup-cloudflare-access.sh
+```
+
+If the Cloudflare Zero Trust account has multiple identity providers, set the
+Google provider explicitly:
+
+```sh
+export CLOUDFLARE_ACCESS_IDP_ID='...'
+./scripts/setup-cloudflare-access.sh
+```
+
 ## Family content publishing
 
 Do not fetch private family repositories from browser JavaScript. Use a
