@@ -57,6 +57,7 @@ Protect the McShan family path with Cloudflare Access:
 ```sh
 export CLOUDFLARE_ACCOUNT_ID='...'
 export CLOUDFLARE_API_TOKEN='...'
+export CLOUDFLARE_FAMILY_MEMBERS='your-google-account@gmail.com'
 ./scripts/setup-cloudflare-access.sh
 ```
 
@@ -65,13 +66,23 @@ Defaults:
 ```text
 Hostname: world.castalia.institute
 Path: /families/mcshan/*
-Allowed email domain: castalia.institute
+Access group: Family - McShan
 ```
 
-For a single account instead of the whole Castalia Google Workspace domain:
+Families are Cloudflare Access groups. Add more family members as a
+comma-separated list:
 
 ```sh
-export CLOUDFLARE_ACCESS_EMAIL='you@castalia.institute'
+export CLOUDFLARE_FAMILY_MEMBERS='parent1@gmail.com,parent2@gmail.com'
+./scripts/setup-cloudflare-access.sh
+```
+
+For a family managed as a Google Workspace domain instead of individual Gmail
+accounts:
+
+```sh
+unset CLOUDFLARE_FAMILY_MEMBERS
+export CLOUDFLARE_FAMILY_EMAIL_DOMAIN='example.org'
 ./scripts/setup-cloudflare-access.sh
 ```
 

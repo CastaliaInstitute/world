@@ -8,13 +8,25 @@ ZONE_NAME="${CLOUDFLARE_ZONE_NAME:-castalia.institute}"
 HOSTNAME="${CLOUDFLARE_ACCESS_HOSTNAME:-world.castalia.institute}"
 PROTECTED_PATH="${CLOUDFLARE_ACCESS_PATH:-/families/mcshan/*}"
 APP_NAME="${CLOUDFLARE_ACCESS_APP_NAME:-Castalia Worldschool - McShan}"
-POLICY_NAME="${CLOUDFLARE_ACCESS_POLICY_NAME:-Allow Castalia Google members}"
-ALLOWED_EMAIL_DOMAIN="${CLOUDFLARE_ACCESS_EMAIL_DOMAIN:-castalia.institute}"
-ALLOWED_EMAIL="${CLOUDFLARE_ACCESS_EMAIL:-}"
+FAMILY_SLUG="${CLOUDFLARE_FAMILY_SLUG:-mcshan}"
+FAMILY_GROUP_NAME="${CLOUDFLARE_FAMILY_GROUP_NAME:-Family - McShan}"
+POLICY_NAME="${CLOUDFLARE_ACCESS_POLICY_NAME:-Allow Family - McShan}"
+FAMILY_MEMBERS="${CLOUDFLARE_FAMILY_MEMBERS:-}"
+FAMILY_EMAIL_DOMAIN="${CLOUDFLARE_FAMILY_EMAIL_DOMAIN:-}"
 IDP_ID="${CLOUDFLARE_ACCESS_IDP_ID:-}"
 
 if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
   echo "error: set CLOUDFLARE_API_TOKEN with Zone DNS Edit and Zero Trust Access app/policy permissions" >&2
+  exit 1
+fi
+
+if [[ -z "${FAMILY_MEMBERS}" && -z "${FAMILY_EMAIL_DOMAIN}" ]]; then
+  cat >&2 <<EOF
+error: set CLOUDFLARE_FAMILY_MEMBERS or CLOUDFLARE_FAMILY_EMAIL_DOMAIN
+
+Example:
+  export CLOUDFLARE_FAMILY_MEMBERS='parent@example.com'
+EOF
   exit 1
 fi
 
@@ -113,6 +125,46 @@ else
   )"
 fi
 
+echo "Ensuring Access group: ${FAMILY_GROUP_NAME}"
+GROUP_ID="$(
+  cf_get "${API}/accounts/${ACCOUNT_ID}/access/groups" |
+    jq -r --arg name "${FAMILY_GROUP_NAME}" '.result[]? | select(.name == $name) | .id' |
+    head -n 1
+)"
+
+if [[ -n "${FAMILY_MEMBERS}" ]]; then
+  GROUP_INCLUDE_JSON="$(
+    jq -n --arg members "${FAMILY_MEMBERS}" '
+      $members
+      | split(",")
+      | map(gsub("^\\s+|\\s+$"; ""))
+      | map(select(length > 0))
+      | map({email: {email: .}})
+    '
+  )"
+else
+  GROUP_INCLUDE_JSON="$(jq -n --arg domain "${FAMILY_EMAIL_DOMAIN}" '[{email_domain: {domain: $domain}}]')"
+fi
+
+GROUP_BODY="$(
+  jq -n \
+    --arg name "${FAMILY_GROUP_NAME}" \
+    --argjson include "${GROUP_INCLUDE_JSON}" \
+    '{
+      name: $name,
+      include: $include
+    }'
+)"
+
+if [[ -n "${GROUP_ID}" ]]; then
+  cf_send PUT "${API}/accounts/${ACCOUNT_ID}/access/groups/${GROUP_ID}" "${GROUP_BODY}" >/dev/null
+else
+  GROUP_ID="$(
+    cf_send POST "${API}/accounts/${ACCOUNT_ID}/access/groups" "${GROUP_BODY}" |
+      jq -r '.result.id'
+  )"
+fi
+
 echo "Ensuring Access allow policy: ${POLICY_NAME}"
 POLICY_ID="$(
   cf_get "${API}/accounts/${ACCOUNT_ID}/access/apps/${APP_ID}/policies" |
@@ -120,11 +172,7 @@ POLICY_ID="$(
     head -n 1
 )"
 
-if [[ -n "${ALLOWED_EMAIL}" ]]; then
-  INCLUDE_JSON="$(jq -n --arg email "${ALLOWED_EMAIL}" '[{email: {email: $email}}]')"
-else
-  INCLUDE_JSON="$(jq -n --arg domain "${ALLOWED_EMAIL_DOMAIN}" '[{email_domain: {domain: $domain}}]')"
-fi
+INCLUDE_JSON="$(jq -n --arg id "${GROUP_ID}" '[{group: {id: $id}}]')"
 
 POLICY_BODY="$(
   jq -n \
@@ -149,9 +197,11 @@ cat <<EOF
 Cloudflare Access configured.
 
 Protected URL: https://${HOSTNAME}${PROTECTED_PATH}
+Family:        ${FAMILY_SLUG}
+Access group:  ${FAMILY_GROUP_NAME}
 Application:   ${APP_NAME}
 Policy:        ${POLICY_NAME}
-Allowed:       ${ALLOWED_EMAIL:-*@${ALLOWED_EMAIL_DOMAIN}}
+Members:       ${FAMILY_MEMBERS:-*@${FAMILY_EMAIL_DOMAIN}}
 
 If your Zero Trust account has multiple identity providers, set
 CLOUDFLARE_ACCESS_IDP_ID to the Google provider id and rerun this script.
