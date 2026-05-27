@@ -5,7 +5,7 @@ API="https://api.cloudflare.com/client/v4"
 
 ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-}"
 ZONE_NAME="${CLOUDFLARE_ZONE_NAME:-castalia.institute}"
-HOSTNAME="${CLOUDFLARE_ACCESS_HOSTNAME:-world.castalia.institute}"
+HOSTNAME="${CLOUDFLARE_ACCESS_HOSTNAME:-worldschool.castalia.institute}"
 PROTECTED_PATH="${CLOUDFLARE_ACCESS_PATH:-/families/mcshan/*}"
 APP_NAME="${CLOUDFLARE_ACCESS_APP_NAME:-Castalia Worldschool - McShan}"
 FAMILY_SLUG="${CLOUDFLARE_FAMILY_SLUG:-mcshan}"

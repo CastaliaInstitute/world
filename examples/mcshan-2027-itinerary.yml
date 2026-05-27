@@ -1,0 +1,153 @@
+family: mcshan
+year: 2027
+planning_notes:
+  audience: "Mixed-age family learners"
+  pacing: "Use each destination as a home base with field days, studio days, and rest days."
+  source_of_truth: "Move this file into the private family repository before publishing live family plans."
+destinations:
+  - slug: costa-rica-cloud-forest
+    name: "Costa Rica: Cloud Forests and Watersheds"
+    location: "San Jose, Monteverde, Sarapiqui"
+    starts_on: 2027-01-18
+    ends_on: 2027-02-05
+    age_fit:
+      elementary: "Observation walks, animal adaptations, map journals, basic Spanish greetings."
+      middle: "Rainforest layers, watershed mapping, coffee/cacao supply chains."
+      high: "Biodiversity economics, conservation tradeoffs, climate data interpretation."
+    curriculum_units:
+      - title: "How does a forest make weather?"
+        subject: "Ecology"
+        essential_question: "How do elevation, water, and biodiversity shape a living system?"
+        activities:
+          - title: "Cloud forest field sketchbook"
+          - title: "Watershed map from mountain to sea"
+          - title: "Spanish market vocabulary walk"
+
+  - slug: washington-dc-civics
+    name: "Washington, DC and the Chesapeake"
+    location: "Washington, DC; Chesapeake Bay"
+    starts_on: 2027-03-22
+    ends_on: 2027-03-31
+    age_fit:
+      elementary: "Monuments as stories, museum scavenger hunts, simple branches-of-government model."
+      middle: "Primary-source reading, local watershed science, civic debate practice."
+      high: "Constitutional tensions, federalism, public policy and environmental regulation."
+    curriculum_units:
+      - title: "Who gets to decide?"
+        subject: "Civics"
+        essential_question: "How do institutions turn values into rules?"
+        activities:
+          - title: "Design a family constitution"
+          - title: "Museum object biography"
+          - title: "Chesapeake watershed case study"
+
+  - slug: netherlands-water-design
+    name: "Netherlands and Belgium: Water, Trade, and Design"
+    location: "Amsterdam, Delft, Rotterdam, Antwerp"
+    starts_on: 2027-04-19
+    ends_on: 2027-05-03
+    age_fit:
+      elementary: "Canal maps, wind and water machines, art looking games."
+      middle: "Polders, sea-level engineering, trade routes, Dutch Golden Age context."
+      high: "Urban planning, climate adaptation, mercantile capitalism, colonial trade critique."
+    curriculum_units:
+      - title: "Can people design with water instead of against it?"
+        subject: "Engineering and History"
+        essential_question: "How do geography and risk shape cities?"
+        activities:
+          - title: "Canal geometry photo study"
+          - title: "Build a tabletop polder"
+          - title: "Port trade network map"
+
+  - slug: united-kingdom-literature-landscape
+    name: "United Kingdom: Literature, Empire, and Landscape"
+    location: "London, Bath, Oxford, Snowdonia"
+    starts_on: 2027-06-14
+    ends_on: 2027-06-29
+    age_fit:
+      elementary: "Castles, trains, myths, nature journaling."
+      middle: "Roman Britain, industrialization, fantasy literature settings."
+      high: "Imperial archives, class and reform, landscape writing."
+    curriculum_units:
+      - title: "How do stories change a place?"
+        subject: "Literature and History"
+        essential_question: "How do writers, rulers, and workers leave traces on a landscape?"
+        activities:
+          - title: "Place-based reading journal"
+          - title: "Roman road and rail route comparison"
+          - title: "Museum label rewrite from another perspective"
+
+  - slug: andalusia-eclipse
+    name: "Andalusia: Astronomy, Al-Andalus, and Navigation"
+    location: "Seville, Cordoba, Granada, Cadiz"
+    starts_on: 2027-07-26
+    ends_on: 2027-08-06
+    age_fit:
+      elementary: "Moon phases, shadow play, tile patterns, map routes."
+      middle: "Eclipses, Islamic geometry, navigation tools, Mediterranean exchange."
+      high: "Astronomical prediction, translation movements, conquest and coexistence."
+    curriculum_units:
+      - title: "How do people predict the sky?"
+        subject: "Astronomy and World History"
+        essential_question: "How have sky observations shaped science, art, and travel?"
+        activities:
+          - title: "Eclipse safety and shadow lab"
+          - title: "Alhambra pattern geometry"
+          - title: "Port city navigation chart"
+    cautions:
+      - "Expect heat; plan field work early and keep afternoons for rest, reading, or indoor museums."
+      - "The 2027 total solar eclipse will make some areas crowded, so book conservatively."
+
+  - slug: four-corners-geology
+    name: "Four Corners: Geology, Deep Time, and Indigenous Homelands"
+    location: "New Mexico, Colorado, Utah, Arizona"
+    starts_on: 2027-09-13
+    ends_on: 2027-09-27
+    age_fit:
+      elementary: "Rock layers, desert adaptations, respectful place-name map."
+      middle: "Plateau geology, water scarcity, archaeology ethics."
+      high: "Sovereignty, extraction economies, public land policy, stratigraphy."
+    curriculum_units:
+      - title: "What can a landscape remember?"
+        subject: "Earth Science and Social Studies"
+        essential_question: "How do rocks, water, and people carry history differently?"
+        activities:
+          - title: "Stratigraphy color column"
+          - title: "River basin water budget"
+          - title: "Indigenous homelands research protocol"
+
+  - slug: japan-kansai-hiroshima
+    name: "Japan: Craft, Memory, and Urban Systems"
+    location: "Kyoto, Nara, Osaka, Hiroshima"
+    starts_on: 2027-10-18
+    ends_on: 2027-11-05
+    age_fit:
+      elementary: "Temple etiquette, food journals, train maps, seasonal art."
+      middle: "Shinto and Buddhist sites, urban transit, craft traditions."
+      high: "War memory, modernization, design systems, demographic change."
+    curriculum_units:
+      - title: "How does a culture balance tradition and change?"
+        subject: "World History and Design"
+        essential_question: "What stays, what adapts, and who decides?"
+        activities:
+          - title: "Transit system challenge"
+          - title: "Craft process observation"
+          - title: "Peace memorial reflection protocol"
+
+  - slug: new-york-philadelphia-public-memory
+    name: "New York and Philadelphia: Immigration, Finance, and Public Memory"
+    location: "New York City, Philadelphia"
+    starts_on: 2027-12-06
+    ends_on: 2027-12-17
+    age_fit:
+      elementary: "Neighborhood walks, immigrant foodways, skyline shapes."
+      middle: "Ellis Island stories, colonial cities, newspapers and media."
+      high: "Capital markets, constitutional founding, migration policy, public monuments."
+    curriculum_units:
+      - title: "How do cities tell national stories?"
+        subject: "American History and Economics"
+        essential_question: "Whose stories become public memory?"
+        activities:
+          - title: "Family migration interview"
+          - title: "City systems map"
+          - title: "Monument argument essay"
